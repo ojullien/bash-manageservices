@@ -1,22 +1,17 @@
 #!/bin/bash
 ## -----------------------------------------------------------------------------
 ## Linux Scripts.
-## Run tests
+## Stop services.
 ##
-## @package ojullien\bash\tests
-## @license MIT <https://github.com/ojullien/bash-sys/blob/master/LICENSE>
+## @package ojullien\bash\bin\manageservices
+## @license MIT <https://github.com/ojullien/bash-manageservices/blob/master/LICENSE>
 ## -----------------------------------------------------------------------------
 #set -o errexit
 set -o nounset
 set -o pipefail
 
-if [[ ${BASH_VERSINFO[0]} -lt 4 ]]; then
-    echo "At least Bash version 4 is needed!" >&2
-    exit 4
-fi
-
 ## -----------------------------------------------------------------------------
-## Shell scripts directory, eg: /root/work/Shell/tests
+## Shell scripts directory, eg: /root/work/Shell/src/bin
 ## -----------------------------------------------------------------------------
 readonly m_DIR_REALPATH="$(realpath "$(dirname "$0")")"
 
@@ -24,11 +19,13 @@ readonly m_DIR_REALPATH="$(realpath "$(dirname "$0")")"
 ## Load constants
 ## -----------------------------------------------------------------------------
 # shellcheck source=/dev/null
-. "${m_DIR_REALPATH}/framework/constant.sh"
+. "${m_DIR_REALPATH}/../sys/constant.sh"
 
 ## -----------------------------------------------------------------------------
-## Includes sources
+## Includes sources & configuration
 ## -----------------------------------------------------------------------------
+# shellcheck source=/dev/null
+. "${m_DIR_SYS}/runasroot.sh"
 # shellcheck source=/dev/null
 . "${m_DIR_SYS}/string.sh"
 # shellcheck source=/dev/null
@@ -36,49 +33,66 @@ readonly m_DIR_REALPATH="$(realpath "$(dirname "$0")")"
 # shellcheck source=/dev/null
 . "${m_DIR_SYS}/option.sh"
 # shellcheck source=/dev/null
-. "${m_DIR_REALPATH}/framework/library.sh"
+. "${m_DIR_SYS}/config.sh"
+# shellcheck source=/dev/null
+. "${m_DIR_SYS}/service.sh"
+Config::load "manageservices"
+# shellcheck source=/dev/null
+. "${m_DIR_APP}/manageservices/app.sh"
+
+## -----------------------------------------------------------------------------
+## Help
+## -----------------------------------------------------------------------------
+((m_OPTION_SHOWHELP)) && ManageServices::showHelp && exit 0
 
 ## -----------------------------------------------------------------------------
 ## Trace
 ## -----------------------------------------------------------------------------
-Test::Constant::trace
+Constant::trace
+ManageServices::trace
 
 ## -----------------------------------------------------------------------------
 ## Start
 ## -----------------------------------------------------------------------------
-
-declare aPackages=("config" "filesystem" "string" "package" "service" "mysql" "mariadb" "ssh")
-declare aFiles=("config" "filesystem" "string" "package" "service" "db/mysql" "db/mariadb" "ssh")
-declare -i iChoice=-1
-
-while ((iChoice>=${#aPackages[*]})) || ((iChoice<0)); do
-
-    String::separateLine
-    declare -i iIndex=0
-    echo "Packages list:"
-
-    for iIndex in ${!aPackages[*]}
-    do
-        printf "%4d: %s\n" "$iIndex" "${aPackages[$iIndex]}"
-    done
-
-    echo -n "Enter your choice (0..$iIndex): "
-    read -r -N 1 iChoice
-    echo
-
-done
-
 String::separateLine
 String::notice "Today is: $(date -R)"
 String::notice "The PID for $(basename "$0") process is: $$"
 Console::waitUser
 
-# shellcheck source=/dev/null
-. "${m_TEST_DIR_SYS}/${aFiles[$iChoice]}_test.sh"
-Test::"${aPackages[$iChoice]}"::main
-Console::waitUser
+## -----------------------------------------------------------------------------
+## Parse the app options and arguments
+## -----------------------------------------------------------------------------
+declare -i iReturn=1
+
+if (( "$#" )); then
+    case "$1" in
+    stop)
+        String::separateLine
+        Service::stopServices ${m_SERVICES_STOP}
+        iReturn=$?
+        ;;
+    start)
+        String::separateLine
+        Service::startServices ${m_SERVICES_START}
+        iReturn=$?
+        ;;
+    disable)
+        String::separateLine
+        Service::disableServices ${m_SERVICES_DISABLE}
+        iReturn=$?
+        ;;
+    *) # unknown option
+        String::separateLine
+        ManageServices::showHelp
+        ;;
+    esac
+else
+        String::separateLine
+        ManageServices::showHelp
+fi
 
 ## -----------------------------------------------------------------------------
 ## END
 ## -----------------------------------------------------------------------------
 String::notice "Now is: $(date -R)"
+exit ${iReturn}
