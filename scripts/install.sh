@@ -4,7 +4,7 @@
 ## Install the bash-manageservices project into the /opt/oju/bash directory.
 ##
 ## @package ojullien\bash\scripts
-## @license MIT <https://github.com/ojullien/bash-sys/blob/master/LICENSE>
+## @license MIT <https://github.com/ojullien/bash-manageservices/blob/master/LICENSE>
 ## -----------------------------------------------------------------------------
 #set -o errexit
 set -o nounset
