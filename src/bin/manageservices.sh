@@ -1,7 +1,7 @@
 #!/bin/bash
 ## -----------------------------------------------------------------------------
 ## Linux Scripts.
-## Stop services.
+## Start, stop or disable a list of services.
 ##
 ## @package ojullien\bash\bin\manageservices
 ## @license MIT <https://github.com/ojullien/bash-manageservices/blob/master/LICENSE>
@@ -46,12 +46,6 @@ Config::load "manageservices"
 ((m_OPTION_SHOWHELP)) && ManageServices::showHelp && exit 0
 
 ## -----------------------------------------------------------------------------
-## Trace
-## -----------------------------------------------------------------------------
-Constant::trace
-ManageServices::trace
-
-## -----------------------------------------------------------------------------
 ## Start
 ## -----------------------------------------------------------------------------
 String::separateLine
@@ -80,6 +74,12 @@ if (( "$#" )); then
         String::separateLine
         Service::disableServices ${m_SERVICES_DISABLE}
         iReturn=$?
+        ;;
+    trace)
+        String::separateLine
+        Constant::trace
+        ManageServices::trace
+        iReturn=0
         ;;
     *) # unknown option
         String::separateLine
