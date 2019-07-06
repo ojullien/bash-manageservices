@@ -23,7 +23,7 @@ Pull requests are the best way to propose changes to the codebase. There are war
 6. Issue that pull request!
 
 ## Bug and fix
-If you encounter any **bugs**, please open an [issue](https://github.com/ojullien/bash-sys/issues/new).
+If you encounter any **bugs**, please open an [issue](https://github.com/ojullien/bash-manageservices/issues/new).
 
 **Great Bug Reports** tend to have:
 

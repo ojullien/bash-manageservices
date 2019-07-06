@@ -64,14 +64,6 @@ Constant::trace() {
 }
 
 ## -----------------------------------------------------------------------------
-## bash-sys must exists
-## -----------------------------------------------------------------------------
-if [[ ! -d "${m_DIR_SYS}" ]]; then
-    String::error "bash-sys is not installed on ${m_DIR_SYS}"
-    exit 1
-fi
-
-## -----------------------------------------------------------------------------
 ## Includes sources & configuration
 ## -----------------------------------------------------------------------------
 # shellcheck source=/dev/null
@@ -91,6 +83,14 @@ fi
 ((m_OPTION_SHOWHELP)) && Option::showHelp && exit 0
 
 ## -----------------------------------------------------------------------------
+## bash-sys must exists
+## -----------------------------------------------------------------------------
+if [[ ! -d "${m_DIR_SYS}" ]]; then
+    String::error "bash-sys is not installed on ${m_DIR_SYS}"
+    exit 1
+fi
+
+## -----------------------------------------------------------------------------
 ## Trace
 ## -----------------------------------------------------------------------------
 Constant::trace
@@ -103,6 +103,14 @@ String::separateLine
 String::notice "Today is: $(date -R)"
 String::notice "The PID for $(basename "$0") process is: $$"
 Console::waitUser
+
+FileSystem::removeDirectory "${m_DIR_APP}/${m_INSTALL_APP_NAME}"
+iReturn=$?
+((0!=iReturn)) && exit ${iReturn}
+
+FileSystem::removeDirectory "${m_DIR_BIN}/${m_INSTALL_APP_NAME}.sh"
+iReturn=$?
+((0!=iReturn)) && exit ${iReturn}
 
 FileSystem::copyFile "${m_INSTALL_SOURCE_APP_DIR}" "${m_DIR_APP}"
 iReturn=$?
