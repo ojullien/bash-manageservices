@@ -57,8 +57,8 @@ Constant::trace() {
     String::notice "Main configuration"
     FileSystem::checkDir "\tSource directory:\t\t${m_DIR_REALPATH}" "${m_DIR_REALPATH}"
     FileSystem::checkDir "\tSystem directory:\t\t${m_DIR_SYS}" "${m_DIR_SYS}"
-    FileSystem::checkDir "\tDestination app directory:\t\t\t${m_DIR_APP}" "${m_DIR_APP}"
-    FileSystem::checkDir "\tDestination bin directory:\t\t\t${m_DIR_BIN}" "${m_DIR_BIN}"
+    FileSystem::checkDir "\tDestination app directory:\t${m_DIR_APP}" "${m_DIR_APP}"
+    FileSystem::checkDir "\tDestination bin directory:\t${m_DIR_BIN}" "${m_DIR_BIN}"
     FileSystem::checkFile "\tLog file is:\t\t\t${m_LOGFILE}" "${m_LOGFILE}"
     return 0
 }
