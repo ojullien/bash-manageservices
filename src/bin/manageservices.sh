@@ -80,7 +80,6 @@ if (( "$#" )); then
         String::separateLine
         Constant::trace
         ManageServices::trace
-        iReturn=0
         ;;
     --*|-*) # unknown option
         shift
