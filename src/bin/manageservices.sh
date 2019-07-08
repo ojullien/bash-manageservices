@@ -75,11 +75,18 @@ if (( "$#" )); then
         Service::disableServices ${m_SERVICES_DISABLE}
         iReturn=$?
         ;;
-    trace)
+    -t|--trace)
+        shift
         String::separateLine
         Constant::trace
         ManageServices::trace
         iReturn=0
+        ;;
+    --*|-*) # unknown option
+        shift
+        String::separateLine
+        SaveSite::showHelp
+        exit 0
         ;;
     *) # unknown option
         String::separateLine
