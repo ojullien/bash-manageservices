@@ -64,7 +64,7 @@ if (( "$#" )); then
     -t|--trace)
         shift
         String::separateLine
-        Constant::trace
+        Install::trace
         ;;
     -r|--remove)
         shift

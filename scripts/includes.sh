@@ -19,7 +19,7 @@ Install::trace() {
 
 Install::run() {
 
-    if ((1==m_INSTALL_OPTION_REMOVE)); then
+    if ((m_INSTALL_OPTION_REMOVE)); then
         FileSystem::removeDirectory "${m_DIR_APP}/${m_INSTALL_APP_NAME}"
         iReturn=$?
         ((0!=iReturn)) && return ${iReturn}
