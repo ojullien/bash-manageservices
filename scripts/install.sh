@@ -59,7 +59,7 @@ Console::waitUser
 ## -----------------------------------------------------------------------------
 declare -i iReturn=1
 
-if (( "$#" )); then
+while (( "$#" )); do
     case "$1" in
     -t|--trace)
         shift
@@ -77,7 +77,7 @@ if (( "$#" )); then
         exit 0
         ;;
     esac
-fi
+done
 
 Install::run ${m_INSTALL_OPTION_REMOVE}
 Console::waitUser
