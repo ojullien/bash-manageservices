@@ -25,8 +25,6 @@ Install::run() {
         FileSystem::removeDirectory "${m_DIR_APP}/${m_INSTALL_APP_NAME}"
         iReturn=$?
         ((0!=iReturn)) && return ${iReturn}
-        else
-        echo "==> ${m_INSTALL_OPTION_REMOVE}"
     fi
 
     FileSystem::removeDirectory "${m_DIR_BIN}/${m_INSTALL_APP_NAME}.sh"
