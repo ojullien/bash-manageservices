@@ -68,8 +68,7 @@ if (( "$#" )); then
         ;;
     -r|--remove)
         shift
-        String::separateLine
-        Install::run
+        m_INSTALL_OPTION_REMOVE=1
         ;;
     *) # unknown option
         shift
@@ -79,6 +78,9 @@ if (( "$#" )); then
         ;;
     esac
 fi
+
+Install::run
+Console::waitUser
 
 ## -----------------------------------------------------------------------------
 ## END
