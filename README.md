@@ -18,7 +18,7 @@ Requires: a Debian/Ubuntu version of linux and a Bash version ~4.4. [bash-sys](h
 
 ## Features
 
-This tool is a wrapper to the 'system and service manager' (systemd or SysV) functions. It allows you to disable, start or stop a list of services with just one command. The services are defined in the [config.sh](src/app/savesystemconf/config.sh) file.
+This tool is a wrapper to the 'system and service manager' (systemd or SysV) functions. It allows you to disable, start or stop a list of services with just one command. The services are defined in the [config.sh](src/app/manageservices/config.sh) file.
 
 ```bash
 Usage: manageservices.sh [options] command

@@ -3,7 +3,7 @@
 ## Linux Scripts.
 ## Start, stop or disable a list of services.
 ##
-## @package ojullien\bash\bin\manageservices
+## @package ojullien\bash\bin
 ## @license MIT <https://github.com/ojullien/bash-manageservices/blob/master/LICENSE>
 ## -----------------------------------------------------------------------------
 #set -o errexit
@@ -88,8 +88,10 @@ if (( "$#" )); then
         exit 0
         ;;
     *) # unknown option
+        shift
         String::separateLine
         ManageServices::showHelp
+        exit 0
         ;;
     esac
 else
