@@ -79,7 +79,7 @@ if (( "$#" )); then
     esac
 fi
 
-Install::run
+Install::run ${m_INSTALL_OPTION_REMOVE}
 Console::waitUser
 
 ## -----------------------------------------------------------------------------
