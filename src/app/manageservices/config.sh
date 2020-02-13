@@ -7,8 +7,8 @@
 ## -----------------------------------------------------------------------------
 
 readonly m_SERVICES_DISABLE="bind9 exim4 postfix smbd nmbd telnet rlogin rexec ftp automount named lpd inetd"
-readonly m_SERVICES_STOP="apache2 fail2ban php7.3-fpm php7.2-fpm mysql"
-readonly m_SERVICES_START="mysql php7.3-fpm php7.2-fpm apache2 fail2ban"
+readonly m_SERVICES_STOP="apache2 fail2ban php7.4-fpm mysql"
+readonly m_SERVICES_START="mysql php7.4-fpm apache2 fail2ban"
 
 ## -----------------------------------------------------------------------------
 ## Trace
