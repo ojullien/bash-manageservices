@@ -84,7 +84,7 @@ if (( "$#" )); then
     --*|-*) # unknown option
         shift
         String::separateLine
-        SaveSite::showHelp
+        ManageServices::showHelp
         exit 0
         ;;
     *) # unknown option
